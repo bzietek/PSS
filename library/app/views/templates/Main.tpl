@@ -94,9 +94,9 @@
 			<div class="col span 7">
 				<ul class="errors">
 					{foreach $msgs->getMessages() as $msg}
-						{strip}
+						{if is_object($msg) && $msg->text != "1"}
 							<li class="msg {if $msg->isError()}error{/if} {if $msg->isWarning()}warning{/if} {if $msg->isInfo()}info{/if}">{$msg->text}</li>
-						{/strip}
+						{/if}
 					{/foreach}
 				</ul>
 			</div>

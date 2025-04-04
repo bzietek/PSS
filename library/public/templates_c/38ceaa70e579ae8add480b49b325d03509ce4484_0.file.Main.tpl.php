@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2025-01-16 16:16:57
+/* Smarty version 4.3.4, created on 2025-04-04 11:59:24
   from 'C:\xampp\htdocs\library\app\views\templates\Main.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_678922e9321740_69689575',
+  'unifunc' => 'content_67efad7cbc3333_20181172',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '38ceaa70e579ae8add480b49b325d03509ce4484' => 
     array (
       0 => 'C:\\xampp\\htdocs\\library\\app\\views\\templates\\Main.tpl',
-      1 => 1737040615,
+      1 => 1743760763,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_678922e9321740_69689575 (Smarty_Internal_Template $_smarty_tpl) {
+function content_67efad7cbc3333_20181172 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 ?>
@@ -123,7 +123,7 @@ $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 
 			</div>
 		<?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_950735548678922e92151e8_95425090', "main");
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_184280575167efad7cbb6775_30899666', "main");
 ?>
 
 			<div class="col span 7">
@@ -134,8 +134,10 @@ $_smarty_tpl->tpl_vars['msg']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['msg']->value) {
 $_smarty_tpl->tpl_vars['msg']->do_else = false;
 ?>
-						<li class="msg <?php if ($_smarty_tpl->tpl_vars['msg']->value->isError()) {?>error<?php }?> <?php if ($_smarty_tpl->tpl_vars['msg']->value->isWarning()) {?>warning<?php }?> <?php if ($_smarty_tpl->tpl_vars['msg']->value->isInfo()) {?>info<?php }?>"><?php echo $_smarty_tpl->tpl_vars['msg']->value->text;?>
+						<?php if (is_object($_smarty_tpl->tpl_vars['msg']->value) && $_smarty_tpl->tpl_vars['msg']->value->text != "1") {?>
+							<li class="msg <?php if ($_smarty_tpl->tpl_vars['msg']->value->isError()) {?>error<?php }?> <?php if ($_smarty_tpl->tpl_vars['msg']->value->isWarning()) {?>warning<?php }?> <?php if ($_smarty_tpl->tpl_vars['msg']->value->isInfo()) {?>info<?php }?>"><?php echo $_smarty_tpl->tpl_vars['msg']->value->text;?>
 </li>
+						<?php }?>
 					<?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
@@ -187,12 +189,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 </body>
 </html><?php }
 /* {block "main"} */
-class Block_950735548678922e92151e8_95425090 extends Smarty_Internal_Block
+class Block_184280575167efad7cbb6775_30899666 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'main' => 
   array (
-    0 => 'Block_950735548678922e92151e8_95425090',
+    0 => 'Block_184280575167efad7cbb6775_30899666',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
