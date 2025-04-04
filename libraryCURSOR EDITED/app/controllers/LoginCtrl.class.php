@@ -75,7 +75,7 @@ class LoginCtrl {
             SessionUtils::store("firstName", $this->user_data["firstName"]);
             SessionUtils::store("lastName", $this->user_data["lastName"]);
             if(RoleUtils::inRole("czytelnik")){
-                App::getRouter()->redirectTo("reader_search");
+                App::getRouter()->redirectTo("reader");
             }
 
             if(RoleUtils::inRole("admin")){

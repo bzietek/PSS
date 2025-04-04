@@ -14,6 +14,8 @@ class ReaderCtrl
 {
     private $form;
     private $books;
+    private $totalRecords;
+    private $totalPages;
 
     public function __construct() {
         $this->form = new SearchForm();
@@ -22,6 +24,13 @@ class ReaderCtrl
     public function validate(): bool {
         $this->form->onlyAvailableBooks = ParamUtils::getFromRequest('onlyAvailableBooks');
         $this->form->genre = ParamUtils::getFromRequest('genre');
+        $this->form->searchTerm = ParamUtils::getFromRequest('searchTerm');
+        $this->form->page = ParamUtils::getFromRequest('page', true, 1);
+
+        // If onlyAvailableBooks is not set, default to 'no'
+        if ($this->form->onlyAvailableBooks === null) {
+            $this->form->onlyAvailableBooks = 'no';
+        }
 
         $v = new Validator();
 
@@ -46,7 +55,6 @@ class ReaderCtrl
 
             if(App::getMessages()->isError()) return false;
 
-
         }catch(PDOException $e){
             Utils::addErrorMessage("Błąd połączenia z bazą danych");
         }
@@ -54,70 +62,71 @@ class ReaderCtrl
         return !App::getMessages()->isError();
     }
 
-    public function action_reader_search() {
-        $this->generateSearchView();
+    public function action_reader() {
+        $this->generateView();
     }
 
     public function action_reader_list() {
         if (!$this->validate()) {
-            $this->generateSearchView();
+            $this->generateView();
             return;
         }
 
         try {
             $genreId = App::getDB()->get("genre", "IdGenre", ["genreName" => $this->form->genre]);
 
-
             if (!$genreId) {
                 Utils::addErrorMessage("Wybrany gatunek nie istnieje.");
-                $this->generateSearchView();
+                $this->generateView();
                 return;
             }
 
+            $where = ["books.IdGenre" => $genreId];
+            
             if ($this->form->onlyAvailableBooks == "yes") {
-                $this->books = App::getDB()->select("books", [
-                    "[>]genre" => ["IdGenre" => "IdGenre"] // right join
-                ], [
-                    "books.IdBook",
-                    "books.title",
-                    "books.author",
-                    "genre.genreName",
-                    "books.availableCopies"
-                ], [
-                    "AND" => [
-                        "books.IdGenre" => $genreId,
-                        "books.availableCopies[>]" => 0
-                    ]
-                ]);
+                $where["books.availableCopies[>]"] = 0;
             }
 
-            else{
-                $this->books = App::getDB()->select("books", [
-                    "[>]genre" => ["IdGenre" => "IdGenre"] // right join
-                ], [
-                    "books.IdBook",
-                    "books.title",
-                    "books.author",
-                    "genre.genreName",
-                    "books.availableCopies"
-                ], [
-                    "AND" => [
-                        "books.IdGenre" => $genreId,
-                    ]
-                ]);
+            if (!empty($this->form->searchTerm)) {
+                $where["OR"] = [
+                    "books.title[~]" => "%{$this->form->searchTerm}%",
+                    "books.author[~]" => "%{$this->form->searchTerm}%"
+                ];
             }
 
+            // Get total count for pagination
+            $this->totalRecords = App::getDB()->count("books", [
+                "[>]genre" => ["IdGenre" => "IdGenre"]
+            ], "books.IdBook", $where);
+
+            $this->totalPages = ceil($this->totalRecords / $this->form->recordsPerPage);
+            
+            // Ensure page is within valid range
+            $this->form->page = max(1, min($this->form->page, $this->totalPages));
+
+            // Get paginated results
+            $this->books = App::getDB()->select("books", [
+                "[>]genre" => ["IdGenre" => "IdGenre"]
+            ], [
+                "books.IdBook",
+                "books.title",
+                "books.author",
+                "genre.genreName",
+                "books.availableCopies"
+            ], [
+                "AND" => $where,
+                "LIMIT" => [($this->form->page - 1) * $this->form->recordsPerPage, $this->form->recordsPerPage]
+            ]);
 
         } catch (PDOException $e) {
             Utils::addErrorMessage("Błąd połączenia z bazą danych");
         }
-        $this->generateTableView();
+        $this->generateView();
     }
 
     public function action_borrowBook() {
         $bookId = ParamUtils::getFromRequest('IdBook');
         $userId = SessionUtils::load("id", true);
-
 
         if (!$userId) {
             Utils::addErrorMessage("Musisz być zalogowany, aby wypożyczyć książkę");
@@ -138,18 +147,14 @@ class ReaderCtrl
             Utils::addErrorMessage("Błąd podczas wypożyczania książki");
         }
 
-        App::getRouter()->forwardTo("reader_search");
+        App::getRouter()->redirectTo("reader");
     }
 
-    private function generateSearchView() {
-        App::getSmarty()->assign("form", $this->form);
-        App::getSmarty()->display("Reader.tpl");
-    }
-
-    private function generateTableView() {
+    private function generateView() {
         App::getSmarty()->assign("form", $this->form);
         App::getSmarty()->assign("books", $this->books ?? []);
+        App::getSmarty()->assign("totalPages", $this->totalPages);
+        App::getSmarty()->assign("currentPage", $this->form->page);
         App::getSmarty()->display("ReaderList.tpl");
     }
-
 }

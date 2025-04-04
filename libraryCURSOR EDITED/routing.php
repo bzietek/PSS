@@ -4,8 +4,7 @@ use core\App;
 use core\Utils;
 
 App::getRouter()->setDefaultRoute('login_show'); #default action
-
-//App::getRouter()->setLoginRoute('login'); #action to forward if no permissions
+App::getRouter()->setLoginRoute('login_show'); #action to forward if no permissions
 
 Utils::addRoute('login', 'LoginCtrl');
 Utils::addRoute('login_show', 'LoginCtrl');
@@ -15,7 +14,6 @@ Utils::addRoute('register', 'RegisterCtrl');
 Utils::addRoute('register_show', 'RegisterCtrl');
 
 Utils::addRoute('reader', 'ReaderCtrl', ["czytelnik"]);
-Utils::addRoute('reader_search', 'ReaderCtrl', ["czytelnik"]);
 Utils::addRoute('reader_list', 'ReaderCtrl', ["czytelnik"]);
 Utils::addRoute('borrowBook', 'ReaderCtrl', ["czytelnik"]);
 
