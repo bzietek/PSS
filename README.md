@@ -9,6 +9,7 @@ Reader.tpl -
 2. dodano linki do następnej i poprzedniej strony
 <hr>
 <h1>AJAX: 18.04.2025</h1> <br>
+
 ReaderCtrl.class.php -
 1. dodano nową metodę action_reader_search_ajax, obsługującą żądania AJAX do wyszukiwania książek
 2. dane zwracane są w formacie JSON, zawierającym książki, numer strony i liczbę wszystkich stron
