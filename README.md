@@ -1,4 +1,4 @@
-Stronnicowanie: 04.04.2025 <br>
+<h1>Stronnicowanie: 04.04.2025</h1> <br>
 
 ReaderCtrl.class.php - 
 1. zmieniono logikę aby wyszukiwanie i wyświetlanie działo się na jednym widoku
@@ -7,8 +7,8 @@ ReaderCtrl.class.php -
 Reader.tpl -
 1. złączono widoki Reader.tpl i ReaderList.tpl
 2. dodano linki do następnej i poprzedniej strony
-
-AJAX: 18.04.2025 <br>
+<hr>
+<h1>AJAX: 18.04.2025</h1> <br>
 ReaderCtrl.class.php -
 1. dodano nową metodę action_reader_search_ajax, obsługującą żądania AJAX do wyszukiwania książek
 2. dane zwracane są w formacie JSON, zawierającym książki, numer strony i liczbę wszystkich stron
