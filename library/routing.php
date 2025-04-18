@@ -18,6 +18,8 @@ Utils::addRoute('reader', 'ReaderCtrl', ["czytelnik"]);
 Utils::addRoute('reader_search', 'ReaderCtrl', ["czytelnik"]);
 Utils::addRoute('reader_list', 'ReaderCtrl', ["czytelnik"]);
 Utils::addRoute('borrowBook', 'ReaderCtrl', ["czytelnik"]);
+Utils::addRoute('reader_search_ajax', 'ReaderCtrl', ['czytelnik']);
+
 
 Utils::addRoute('admin_show', 'AdminCtrl', ["admin"]);
 Utils::addRoute('updateRole', 'AdminCtrl', ["admin"]);

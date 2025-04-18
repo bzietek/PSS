@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2025-04-04 11:46:37
+/* Smarty version 4.3.4, created on 2025-04-18 14:30:23
   from 'C:\xampp\htdocs\library\app\views\Reader.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_67efaa7d1d5473_23266553',
+  'unifunc' => 'content_680245dfb68a07_12446698',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3a32bc39fc9cf9292820570662bed2b4065ea431' => 
     array (
       0 => 'C:\\xampp\\htdocs\\library\\app\\views\\Reader.tpl',
-      1 => 1743759963,
+      1 => 1744979380,
       2 => 'file',
     ),
   ),
@@ -20,32 +20,37 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_67efaa7d1d5473_23266553 (Smarty_Internal_Template $_smarty_tpl) {
+function content_680245dfb68a07_12446698 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_11717840467efaa7d1a4a55_97335155', "main");
-$_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_462424766680245dfb657a7_82290340', "main");
+?>
+
+<?php $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block "main"} */
-class Block_11717840467efaa7d1a4a55_97335155 extends Smarty_Internal_Block
+class Block_462424766680245dfb657a7_82290340 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'main' => 
   array (
-    0 => 'Block_11717840467efaa7d1a4a55_97335155',
+    0 => 'Block_462424766680245dfb657a7_82290340',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\library\\lib\\smarty\\plugins\\modifier.count.php','function'=>'smarty_modifier_count',),));
 ?>
 
     <form action="reader_list" method="POST" style="margin: 20px;">
-        <label style="margin-right: 10px;"> </label>
-        <input type="hidden" name="onlyAvailableBooks" value="no">
-            <input type="checkbox" name="onlyAvailableBooks" value="yes" style="margin-right: 5px; display: inline-block; visibility: visible;">Pokaż tylko dostępne książki
+        <div style="margin-bottom: 15px;">
+            <label for="onlyAvailableBooks" style="display: flex; align-items: center; gap: 8px; font-size: 15px; margin: 0;">
+                <input type="checkbox" id="onlyAvailableBooks" name="onlyAvailableBooks" value="yes"
+                       style="width: 14px; height: 14px; margin: 0;">
+                Pokaż tylko dostępne książki
+            </label>
+        </div>
 
         <label>
             <select name="genre" style="padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
@@ -55,96 +60,136 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\library\\
                 <option value="Kryminał">Kryminał</option>
             </select>
         </label>
-        <button type="submit" style="padding: 5px 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">Szukaj</button>
+
+        <button type="submit" style="margin-top: 10px; padding: 5px 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Szukaj
+        </button>
     </form>
+
     <hr>
     <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
         <thead>
         <tr>
-            <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Tytuł</th>
-            <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Autor</th>
-            <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Gatunek</th>
-            <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; text-align: left;">Akcja</th>
+            <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2;">Tytuł</th>
+            <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2;">Autor</th>
+            <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2;">Gatunek</th>
+            <th style="border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2;">Akcja</th>
         </tr>
         </thead>
-        <tbody>
-        <?php if (smarty_modifier_count($_smarty_tpl->tpl_vars['books']->value) > 0) {?>
-            <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['books']->value, 'book');
-$_smarty_tpl->tpl_vars['book']->do_else = true;
-if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['book']->value) {
-$_smarty_tpl->tpl_vars['book']->do_else = false;
-?>
-                <tr>
-                    <td style="border: 1px solid #ddd; padding: 8px;"><?php echo $_smarty_tpl->tpl_vars['book']->value['title'];?>
-</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;"><?php echo $_smarty_tpl->tpl_vars['book']->value['author'];?>
-</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;"><?php echo $_smarty_tpl->tpl_vars['book']->value['genreName'];?>
-</td>
-
-                    <?php if ($_smarty_tpl->tpl_vars['book']->value['availableCopies'] > 0) {?>
-                        <form action="borrowBook" method="post">
-                            <td style="border: 1px solid #ddd; padding: 8px;">
-                                <input type="hidden" name="IdBook" value="<?php echo $_smarty_tpl->tpl_vars['book']->value['IdBook'];?>
-">
-                                <button type="submit" style="padding: 5px 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">Wypożycz</button>
-                            </td>
-                        </form>
-                    <?php } else { ?>
-                        <td style="border: 1px solid #ddd; padding: 8px;">
-                            <button type="submit" disabled">Brak</button>
-                        </td>
-                    <?php }?>
-                </tr>
-            <?php
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-        <?php } else { ?>
-            <tr>
-                <td colspan="4">Brak wyników</td>
-            </tr>
-        <?php }?>
+        <tbody id="bookTableBody">
+        <tr>
+            <td colspan="4">Brak wyników</td>
+        </tr>
         </tbody>
     </table>
-    <?php if (smarty_modifier_count($_smarty_tpl->tpl_vars['books']->value) > 0) {?>
-        <div style="text-align: center; margin-top: 20px;">
-            <?php if ($_smarty_tpl->tpl_vars['currentPage']->value > 1) {?>
-                <a href="reader_list?page=<?php echo $_smarty_tpl->tpl_vars['currentPage']->value-1;?>
-&genre=<?php echo $_smarty_tpl->tpl_vars['form']->value->genre;?>
-&onlyAvailableBooks=<?php echo $_smarty_tpl->tpl_vars['form']->value->onlyAvailableBooks;?>
-" style="margin-right: 10px;">⬅️ Poprzednia</a>
-            <?php }?>
 
-            <?php
-$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['i']->step = 1;$_smarty_tpl->tpl_vars['i']->total = (int) ceil(($_smarty_tpl->tpl_vars['i']->step > 0 ? $_smarty_tpl->tpl_vars['totalPages']->value+1 - (1) : 1-($_smarty_tpl->tpl_vars['totalPages']->value)+1)/abs($_smarty_tpl->tpl_vars['i']->step));
-if ($_smarty_tpl->tpl_vars['i']->total > 0) {
-for ($_smarty_tpl->tpl_vars['i']->value = 1, $_smarty_tpl->tpl_vars['i']->iteration = 1;$_smarty_tpl->tpl_vars['i']->iteration <= $_smarty_tpl->tpl_vars['i']->total;$_smarty_tpl->tpl_vars['i']->value += $_smarty_tpl->tpl_vars['i']->step, $_smarty_tpl->tpl_vars['i']->iteration++) {
-$_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 1;$_smarty_tpl->tpl_vars['i']->last = $_smarty_tpl->tpl_vars['i']->iteration === $_smarty_tpl->tpl_vars['i']->total;?>
-                <?php if ($_smarty_tpl->tpl_vars['i']->value == $_smarty_tpl->tpl_vars['currentPage']->value) {?>
-                    <strong><?php echo $_smarty_tpl->tpl_vars['i']->value;?>
-</strong>
-                <?php } else { ?>
-                    <a href="reader_list?page=<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
-&genre=<?php echo $_smarty_tpl->tpl_vars['form']->value->genre;?>
-&onlyAvailableBooks=<?php echo $_smarty_tpl->tpl_vars['form']->value->onlyAvailableBooks;?>
-"><?php echo $_smarty_tpl->tpl_vars['i']->value;?>
-</a>
-                <?php }?>
-            <?php }
-}
-?>
+    <div id="paginationControls" style="margin-top: 20px; text-align: center;"></div>
 
-            <?php if ($_smarty_tpl->tpl_vars['currentPage']->value < $_smarty_tpl->tpl_vars['totalPages']->value) {?>
-                <a href="reader_list?page=<?php echo $_smarty_tpl->tpl_vars['currentPage']->value+1;?>
-&genre=<?php echo $_smarty_tpl->tpl_vars['form']->value->genre;?>
-&onlyAvailableBooks=<?php echo $_smarty_tpl->tpl_vars['form']->value->onlyAvailableBooks;?>
-" style="margin-left: 10px;">Następna ➡️</a>
-            <?php }?>
-        </div>
-    <?php }?>
+    <?php echo '<script'; ?>
+>
+        let currentPage = 1;
+
+        function loadBooks(page = 1) {
+            const form = document.querySelector('form');
+            const formData = new FormData(form);
+            formData.append('page', page);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "reader_search_ajax", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const tableBody = document.getElementById("bookTableBody");
+                    const pagination = document.getElementById("paginationControls");
+
+                    try {
+                        const data = JSON.parse(xhr.responseText);
+
+                        if (data.success) {
+                            currentPage = data.currentPage;
+                            if (data.books.length > 0) {
+                                let html = "";
+                                data.books.forEach(function (book) {
+                                    html += "<tr>";
+                                    html += "<td style='border:1px solid #ddd; padding:8px;'>" + book.title + "</td>";
+                                    html += "<td style='border:1px solid #ddd; padding:8px;'>" + book.author + "</td>";
+                                    html += "<td style='border:1px solid #ddd; padding:8px;'>" + book.genre + "</td>";
+                                    html += "<td style='border:1px solid #ddd; padding:8px;'>";
+
+                                    if (book.availableCopies > 0) {
+                                        html += "<button class='borrowBtn' data-id='" + book.IdBook + "' style='padding:5px 10px; background-color:#4CAF50; color:white; border:none; border-radius:4px; cursor:pointer;'>Wypożycz</button>";
+                                    } else {
+                                        html += "<button type='submit' disabled>Brak</button>";
+                                    }
+
+                                    html += "</td></tr>";
+                                });
+                                tableBody.innerHTML = html;
+                            } else {
+                                tableBody.innerHTML = "<tr><td colspan='4'>Brak wyników</td></tr>";
+                            }
+
+                            let pagHTML = "";
+                            if (data.totalPages > 1) {
+                                if (currentPage > 1) {
+                                    pagHTML += "<button onclick='loadBooks(" + (currentPage - 1) + ")' style='margin-right:10px;'>⬅️ Poprzednia</button>";
+                                }
+                                pagHTML += "<span>Strona " + currentPage + " z " + data.totalPages + "</span>";
+                                if (currentPage < data.totalPages) {
+                                    pagHTML += "<button onclick='loadBooks(" + (currentPage + 1) + ")' style='margin-left:10px;'>Następna ➡️</button>";
+                                }
+                            }
+                            pagination.innerHTML = pagHTML;
+
+                        } else {
+                            tableBody.innerHTML = "<tr><td colspan='4' style='color:red;'>" + data.message + "</td></tr>";
+                            pagination.innerHTML = "";
+                        }
+                    } catch (err) {
+                        tableBody.innerHTML = "<tr><td colspan='4' style='color:red;'>Błąd przetwarzania danych</td></tr>";
+                        pagination.innerHTML = "";
+                    }
+                }
+            };
+            xhr.send(formData);
+        }
+
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            currentPage = 1;
+            loadBooks(currentPage);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('borrowBtn')) {
+                const bookId = e.target.getAttribute('data-id');
+                const xhr = new XMLHttpRequest();
+                const formData = new FormData();
+                formData.append("IdBook", bookId);
+
+                xhr.open("POST", "borrowBook", true);
+                xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        alert("Książka wypożyczona pomyślnie");
+                        loadBooks(currentPage);
+                    }
+                };
+                xhr.send(formData);
+            }
+        });
+    <?php echo '</script'; ?>
+>
+
     <a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"logout"),$_smarty_tpl ) );?>
 " class="title">Wyloguj</a>
+
+    <style>
+        input[type="checkbox"] {
+            appearance: auto !important;
+            visibility: visible !important;
+            display: inline-block !important;
+        }
+    </style>
 <?php
 }
 }

@@ -113,6 +113,21 @@ class ReaderCtrl
     }
 
     public function action_borrowBook() {
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            $id = ParamUtils::getFromPost('IdBook');
+
+            if ($id) {
+                App::getDB()->update("books", [
+                    "availableCopies[-]" => 1
+                ], [
+                    "IdBook" => $id
+                ]);
+                echo "OK";
+            } else {
+                echo "Błąd: brak IdBook";
+            }
+            return;
+        }
         $bookId = ParamUtils::getFromRequest('IdBook');
         $userId = SessionUtils::load("id", true);
 
@@ -138,6 +153,69 @@ class ReaderCtrl
 
         App::getRouter()->forwardTo("reader_search"); // wymyslic jak zrobic zeby po kliknieciu wypozycz, zostawac na widoku tableki z wynikami
     }
+
+    public function action_reader_search_ajax() {
+        header('Content-Type: application/json');
+
+        $this->form->onlyAvailableBooks = ParamUtils::getFromRequest('onlyAvailableBooks');
+        $this->form->genre = ParamUtils::getFromRequest('genre');
+        $page = intval(ParamUtils::getFromRequest('page', true, '1'));
+        $booksPerPage = 5;
+        $offset = ($page - 1) * $booksPerPage;
+
+        if (!$this->form->genre) {
+            echo json_encode(["success" => false, "message" => "Nie wybrano gatunku."]);
+            return;
+        }
+
+        try {
+            $where = ["genre.genreName" => $this->form->genre];
+            if ($this->form->onlyAvailableBooks === "yes") {
+                $where["books.availableCopies[>]"] = 0;
+            }
+
+            // najpierw pobierz ID gatunku na podstawie nazwy
+            $genreID = App::getDB()->get("genre", "IdGenre", [
+                "genreName" => $this->form->genre
+            ]);
+
+            if (!$genreID) {
+                echo json_encode(["success" => false, "message" => "Nie znaleziono takiego gatunku."]);
+                return;
+            }
+
+            $where = ["books.IdGenre" => $genreID];
+            if ($this->form->onlyAvailableBooks === "yes") {
+                $where["books.availableCopies[>]"] = 0;
+
+            }
+
+            $totalBooks = App::getDB()->count("books", $where);
+
+
+            $totalPages = ceil($totalBooks / $booksPerPage);
+
+            $books = App::getDB()->select("books", [
+                "[>]genre" => ["IdGenre" => "IdGenre"]
+            ], [
+                "books.IdBook",
+                "books.title",
+                "books.author",
+                "books.availableCopies",
+                "genre.genreName(genre)"
+            ], array_merge($where, ["LIMIT" => [$offset, $booksPerPage]]));
+
+            echo json_encode([
+                "success" => true,
+                "books" => $books,
+                "totalPages" => $totalPages,
+                "currentPage" => $page
+            ]);
+        } catch (\PDOException $e) {
+            echo json_encode(["success" => false, "message" => "Błąd bazy danych: " . $e->getMessage()]);
+        }
+    }
+
 
     private function generateSearchView() {
         App::getSmarty()->assign("form", $this->form);
