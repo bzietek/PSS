@@ -90,25 +90,14 @@
 
 
 			</div>
-
-			{block name="main"}
-
-				<div class="cms-main-text" style="margin-bottom: 20px;">
-					{$cmsText|escape:'html'}
-				</div>
-
-				<div class="col span 7">
-					<ul class="errors">
-						{foreach $msgs->getMessages() as $msg}
-							{if is_object($msg) && $msg->text != "1"}
-								<li class="msg {if $msg->isError()}error{/if} {if $msg->isWarning()}warning{/if} {if $msg->isInfo()}info{/if}">{$msg->text}</li>
-							{/if}
-						{/foreach}
-					</ul>
-				</div>
-
-			{/block}
-
+		{block name="main"}{/block}
+			<div class="col span 7">
+				<ul class="errors">
+					{foreach $msgs->getMessages() as $msg}
+						{if is_object($msg) && $msg->text != "1"}
+							<li class="msg {if $msg->isError()}error{/if} {if $msg->isWarning()}warning{/if} {if $msg->isInfo()}info{/if}">{$msg->text}</li>
+						{/if}
+					{/foreach}
 				</ul>
 			</div>
 	<!-- END OF CONTENT -->

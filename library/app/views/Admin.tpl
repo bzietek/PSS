@@ -34,11 +34,5 @@
         </tbody>
     </table>
     <hr>
-    <div class="admin-links">
-        <a href="{url action='cms_panel'}" style="padding: 10px; display: inline-block; background-color: #eee; border-radius: 4px;">
-            🛠️ Edytuj treść strony głównej (CMS)
-        </a>
-    </div>
-
     <a href="{url action="logout"}" class="title">Wyloguj</a>
 {/block}

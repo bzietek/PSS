@@ -21,9 +21,4 @@
                 </div>
             <br>
             </div>
-    <h2>Strona główna</h2>
-    <div class="cms-main-text" style="padding: 10px; border: 1px solid #ccc;">
-        {$cmsText|escape:'html'}
-    </div>
-
 {/block}

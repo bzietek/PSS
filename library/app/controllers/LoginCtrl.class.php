@@ -104,11 +104,8 @@ class LoginCtrl {
     }
 
     public function generateView(){
-        $text = App::getDB()->get("cms_content", "content", ["section" => "main_text"]);
-        App::getSmarty()->assign("cmsText", $text);
         App::getSmarty()->assign("form", $this->form);
         App::getSmarty()->display("Login.tpl");
-
     }
 
     public function action_login_show() {
