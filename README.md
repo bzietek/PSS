@@ -24,7 +24,7 @@ Reader.tpl -
 4. dodano dynamiczne stronnicowanie AJAX (poprzednia, nastepna)
 5. przycisk „Wypożycz” też jest obsługiwany AJAX-owo – po wypożyczeniu lista książek odświeża się bez przeładowania
 
-<h2>🛠️ CMS – Edycja treści strony głównej: 06.05.2025</h2>
+<h1> CMS – Edycja treści strony głównej: 06.05.2025</h1>
 
 <h3>CmsCtrl.class.php</h3>
 <ol>
