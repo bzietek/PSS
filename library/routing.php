@@ -27,4 +27,8 @@ Utils::addRoute('updateRole', 'AdminCtrl', ["admin"]);
 Utils::addRoute('librarian_show', 'LibrarianCtrl', ["bibliotekarz"]);
 Utils::addRoute('reclaim', 'LibrarianCtrl', ["bibliotekarz"]);
 
+Utils::addRoute('cms_panel', 'CmsCtrl', ['admin']);
+Utils::addRoute('cms_save', 'CmsCtrl', ['admin']);
+
+
 //Utils::addRoute('action_name', 'controller_class_name');
