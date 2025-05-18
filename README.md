@@ -55,3 +55,34 @@ Reader.tpl -
 
 <p><strong>📌 Treść widoczna od razu po wejściu na stronę (dla wszystkich użytkowników)</strong><br>
 <strong>📌 Edycja dostępna wyłącznie dla administratora przez link w <code>admin_show</code></strong></p>
+
+<h2>CMS – Szablon i wygląd: 16.05.2025</h2>
+
+<h3>CmsCtrl.class.php</h3>
+<ul>
+  <li>Dodano zapisywanie daty ostatniej aktualizacji (pole <code>updated_at</code>) w bazie przy zapisie treści</li>
+  <li>Dodano nową tabelę <code>cms_history</code> z kolumnami <code>id</code>, <code>content</code>, <code>created_at</code> do zapisywania historii edycji treści</li>
+  <li>W metodzie <code>action_cms_save</code> dodano zapis poprzedniej treści do historii po każdej zmianie</li>
+  <li>W metodzie <code>action_cms_panel</code> pobierana jest data ostatniej aktualizacji i przekazywana do widoku</li>
+</ul>
+
+<h3>cms.tpl</h3>
+<ul>
+  <li>Dodano wyświetlanie daty ostatniej aktualizacji pod formularzem</li>
+  <li>Dodano przycisk „Wyczyść”, który pozwala wyczyścić treść strony</li>
+  <li>Dodano przycisk „Wróć do panelu admina”, który odsyła do <code>admin_show</code></li>
+  <li>Ulepszono styl formularza – padding, szerokość, marginesy</li>
+  <li>Komunikaty o sukcesie wyświetlane nad formularzem</li>
+</ul>
+
+<h3>LoginCtrl.class.php + Login.tpl</h3>
+<ul>
+  <li>W <code>generateView()</code> treść <code>main_text</code> jest przekazywana jako <code>cmsText</code></li>
+  <li>W widoku <code>Login.tpl</code> dodano filtr <code>|nl2br</code> przy wyświetlaniu treści, co poprawia układ i widoczność akapitów</li>
+  <li>Ogłoszenie wygląda estetycznie, a administrator może je zmieniać z poziomu CMS</li>
+</ul>
+
+<p>📌 Treść formatuje się automatycznie – nowe linie są zamieniane na <code>&lt;br&gt;</code><br>
+📌 Edycje są zapisywane w bazie w historii (CMS działa jak prosty edytor ogłoszeń)<br>
+📌 Użytkownik widzi datę ostatniej aktualizacji ogłoszenia na stronie głównej</p>
+
