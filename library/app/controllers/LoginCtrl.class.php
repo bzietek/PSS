@@ -104,14 +104,8 @@ class LoginCtrl {
     }
 
     public function generateView(){
-        $row = App::getDB()->get("cms_content", ["content", "updated_at"], [
-            "section" => "main_text"
-        ]);
-        App::getSmarty()->assign("cmsText", $row["content"] ?? "");
-        App::getSmarty()->assign("cmsUpdated", $row["updated_at"] ?? null);
         App::getSmarty()->assign("form", $this->form);
         App::getSmarty()->display("Login.tpl");
-
     }
 
     public function action_login_show() {

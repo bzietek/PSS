@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2025-05-06 19:55:29
+/* Smarty version 4.3.4, created on 2025-01-18 08:46:46
   from 'C:\xampp\htdocs\library\app\views\Admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_681a4d11e68bc2_48954956',
+  'unifunc' => 'content_678b5c662f29e9_17395451',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '75c4bead563179accf0bde3bf09d868f85a7e004' => 
     array (
       0 => 'C:\\xampp\\htdocs\\library\\app\\views\\Admin.tpl',
-      1 => 1746553864,
+      1 => 1737152599,
       2 => 'file',
     ),
   ),
@@ -20,24 +20,24 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_681a4d11e68bc2_48954956 (Smarty_Internal_Template $_smarty_tpl) {
+function content_678b5c662f29e9_17395451 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1407048730681a4d11e5cb15_76288112', "main");
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1759648663678b5c662e7d82_05126443', "main");
 ?>
 
 <?php $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block "main"} */
-class Block_1407048730681a4d11e5cb15_76288112 extends Smarty_Internal_Block
+class Block_1759648663678b5c662e7d82_05126443 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'main' => 
   array (
-    0 => 'Block_1407048730681a4d11e5cb15_76288112',
+    0 => 'Block_1759648663678b5c662e7d82_05126443',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -88,13 +88,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         </tbody>
     </table>
     <hr>
-    <div class="admin-links">
-        <a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>'cms_panel'),$_smarty_tpl ) );?>
-" style="padding: 10px; display: inline-block; background-color: #eee; border-radius: 4px;">
-            🛠️ Edytuj treść strony głównej (CMS)
-        </a>
-    </div>
-
     <a href="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['url'][0], array( array('action'=>"logout"),$_smarty_tpl ) );?>
 " class="title">Wyloguj</a>
 <?php
