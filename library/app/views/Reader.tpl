@@ -54,6 +54,7 @@
             xhr.open("POST", "reader_search_ajax", true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
                     const tableBody = document.getElementById("bookTableBody");
                     const pagination = document.getElementById("paginationControls");
 

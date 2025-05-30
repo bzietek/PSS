@@ -46,14 +46,13 @@ class LibrarianCtrl{
         try {
             App::getDB()->update("borrow", [
                 "damageDescription" => $damageDescription,
-                "returnDate" => date("Y-m-d H:i:s") // Set current timestamp
+                "returnDate" => date("Y-m-d H:i:s")
             ], [
                 "IdBorrow" => $idBorrow
             ]);
 
             $idBook = App::getDB()->get("borrow", "IdBook", ["IdBorrow" => $idBorrow]);
 
-            // Increase availableCopies by 1 in books table
             App::getDB()->update("books", [
                 "availableCopies[+]" => 1
             ], [

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.4, created on 2025-04-18 14:30:23
+/* Smarty version 4.3.4, created on 2025-05-30 14:30:18
   from 'C:\xampp\htdocs\library\app\views\Reader.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.4',
-  'unifunc' => 'content_680245dfb68a07_12446698',
+  'unifunc' => 'content_6839a4da694292_27586608',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3a32bc39fc9cf9292820570662bed2b4065ea431' => 
     array (
       0 => 'C:\\xampp\\htdocs\\library\\app\\views\\Reader.tpl',
-      1 => 1744979380,
+      1 => 1748608167,
       2 => 'file',
     ),
   ),
@@ -20,24 +20,24 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_680245dfb68a07_12446698 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6839a4da694292_27586608 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_462424766680245dfb657a7_82290340', "main");
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_7673407056839a4da63fba8_87810339', "main");
 ?>
 
 <?php $_smarty_tpl->inheritance->endChild($_smarty_tpl, "Main.tpl");
 }
 /* {block "main"} */
-class Block_462424766680245dfb657a7_82290340 extends Smarty_Internal_Block
+class Block_7673407056839a4da63fba8_87810339 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'main' => 
   array (
-    0 => 'Block_462424766680245dfb657a7_82290340',
+    0 => 'Block_7673407056839a4da63fba8_87810339',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -98,6 +98,7 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
             xhr.open("POST", "reader_search_ajax", true);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
                     const tableBody = document.getElementById("bookTableBody");
                     const pagination = document.getElementById("paginationControls");
 

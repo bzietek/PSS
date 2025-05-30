@@ -63,12 +63,12 @@ class ReaderCtrl
             $this->generateSearchView();
             return;
         }
-
-        // Pobieramy numer strony, domyślnie 1
-        $page = ParamUtils::getFromRequest('page', true, '1');
-        $page = max(1, intval($page)); // Konwersja na liczbę i zabezpieczenie przed wartościami ujemnymi
-        $resultsPerPage = 10; // Liczba książek na stronę
-        $offset = ($page - 1) * $resultsPerPage;
+//          STRONNICOWANIE BEZ AJAXA
+//        // Pobieramy numer strony, domyślnie 1
+//        $page = ParamUtils::getFromRequest('page', true, '1');
+//        $page = max(1, intval($page)); // Konwersja na liczbę i zabezpieczenie przed wartościami ujemnymi
+//        $resultsPerPage = 10; // Liczba książek na stronę
+//        $offset = ($page - 1) * $resultsPerPage;
 
         try {
             $genreId = App::getDB()->get("genre", "IdGenre", ["genreName" => $this->form->genre]);
@@ -95,63 +95,52 @@ class ReaderCtrl
                 "books.availableCopies"
             ], [
                 "AND" => $conditions,
-                "LIMIT" => [$offset, $resultsPerPage]
+//                  STRONNICOWANIE BEZ AJAXA
+//                "LIMIT" => [$offset, $resultsPerPage]
             ]);
-
-            // Pobieramy całkowitą liczbę książek, aby obliczyć liczbę stron
-            $totalBooks = App::getDB()->count("books", ["AND" => $conditions]);
-            $totalPages = ceil($totalBooks / $resultsPerPage);
+//                  STRONNICOWANIE BEZ AJAXA
+//            // Pobieramy całkowitą liczbę książek, aby obliczyć liczbę stron
+//            $totalBooks = App::getDB()->count("books", ["AND" => $conditions]);
+//            $totalPages = ceil($totalBooks / $resultsPerPage);
 
         } catch (PDOException $e) {
             Utils::addErrorMessage("Błąd połączenia z bazą danych");
         }
 
-        // Przekazujemy dane do widoku
-        App::getSmarty()->assign("currentPage", $page);
-        App::getSmarty()->assign("totalPages", $totalPages);
+//        // Przekazujemy dane do widoku
+//        App::getSmarty()->assign("currentPage", $page);
+//        App::getSmarty()->assign("totalPages", $totalPages);
+        App::getSmarty()->assign("books", $this->books ?? []);
         $this->generateSearchView();
     }
 
     public function action_borrowBook() {
         if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
             $id = ParamUtils::getFromPost('IdBook');
-
             if ($id) {
                 App::getDB()->update("books", [
                     "availableCopies[-]" => 1
                 ], [
                     "IdBook" => $id
                 ]);
-                echo "OK";
+
+                // Dodanie rekordu do tabeli borrow
+                $userId = SessionUtils::load("id", true);
+                App::getDB()->insert("borrow", [
+                    "IdBook" => $id,
+                    "createdBy" => $userId,
+                    "damageDescription" => null,
+                    "returnDate" => null
+                ]);
+
+                echo "OK"; // Odpowiedź dla AJAXa
             } else {
                 echo "Błąd: brak IdBook";
             }
             return;
         }
-        $bookId = ParamUtils::getFromRequest('IdBook');
-        $userId = SessionUtils::load("id", true);
 
-
-        if (!$userId) {
-            Utils::addErrorMessage("Musisz być zalogowany, aby wypożyczyć książkę");
-            App::getRouter()->redirectTo("login_show");
-            return;
-        }
-
-        try {
-            App::getDB()->update("books", ["availableCopies[-]" => 1], ["IdBook" => $bookId]);
-            App::getDB()->insert("borrow", [
-                "IdBook" => $bookId,
-                "createdBy" => $userId,
-                "damageDescription" => null,
-                "returnDate" => null
-            ]);
-            Utils::addInfoMessage("Książka wypożyczona pomyślnie");
-        } catch (PDOException $e) {
-            Utils::addErrorMessage("Błąd podczas wypożyczania książki");
-        }
-
-        App::getRouter()->forwardTo("reader_search"); // wymyslic jak zrobic zeby po kliknieciu wypozycz, zostawac na widoku tableki z wynikami
+        App::getRouter()->forwardTo("reader_search");
     }
 
     public function action_reader_search_ajax() {
